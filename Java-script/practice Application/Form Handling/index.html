@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            align-items: flex-start;
+        }
+    </style>
+</head>
+<body>
+    <h2 id="greetings">Fill The Sign-Up Form</h2>
+    <form action="./thankyou.html">
+        <input type="text" placeholder="username" name="username" onkeydown="handleUserName(event)">
+        <input type="email" placeholder="email" name="email">
+        <input type="password" placeholder="password" name="password">
+        <button>Submit</button>
+    </form>
+    <script src="./form.js"></script>
+</body>
+</html>

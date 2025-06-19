@@ -1245,41 +1245,45 @@ const data = {
 }
 
 
-const parent = document.getElementById("root");
+const parentElem = document.getElementsByTagName("main")[0];
+
 const { recipes } = data;
-const createUI = () => {
-    recipes.forEach((elem) => {
-        const newDiv = document.createElement("div");
-        newDiv.className = "card";
-        newDiv.innerHTML = `
-            <h3>${elem.name}</h3>
-            <img src="${elem.imagea}" alt="${elem.name}">
-            <p>Rating : ${elem.rating}</p>
-            <p>Cuisine : ${elem.cuisine}</p>
-            <p>Meal-Type : ${elem.mealType}</p>
-        `;
-        parent.append(newDiv);
-    });
-};
-createUI();
+
+recipes.forEach(({ name, image, cuisine, rating, servings }) => {
+    const newDiv = document.createElement("div");
+    const popUpData = {name, image, cuisine, rating, servings}
+    newDiv.className = "card";
+    newDiv.innerHTML = `
+        <p>${name}</p>
+        <img src='${image}abcd' width='200' height='200', alt= '${name}'>
+        <p>${cuisine}</p>
+        <p>Rating : ${rating}</p>
+        <p>Servings : ${servings}</p>
+        <button onclick='handleCardClick(${JSON.stringify(popUpData)})'>Click Me</button>
+    `;
+    parentElem.appendChild(newDiv);
+});
 
 const popUpView = document.getElementById("pop-up-view");
 const popUpContent = document.getElementById("pop-up-content");
 
-const handleCardClick = () => {
+const handleCardClick = (obj) => {
     popUpView.style.display = "flex";
     popUpContent.innerHTML = `
-        <p>Nishant</p>
-    `
+        <p>${obj.name}</p>
+        <p>${obj.cuisine}</p>
+        <p>Rating : ${obj.rating}</p>
+        <p>Servings : ${obj.servings}</p>
+    `;
 };
 
 const handleClosePopUp = () => {
     popUpView.style.display = "none";
 };
 
-const homeButton = document.getElementsByTagName('button')[0];
-homeButton.addEventListener('click', () => {
-    alert("Programatically Handled");
-})
+// const homeButton = document.getElementsByTagName('button')[0];
+// homeButton.addEventListener('click', () => {
+//     alert("Programatically Handled");
+// })
 
 
