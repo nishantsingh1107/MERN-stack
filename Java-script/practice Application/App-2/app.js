@@ -1253,7 +1253,7 @@ const createUI = () => {
         newDiv.className = "card";
         newDiv.innerHTML = `
             <h3>${elem.name}</h3>
-            <img src="${elem.image}" alt="${elem.name}">
+            <img src="${elem.imagea}" alt="${elem.name}">
             <p>Rating : ${elem.rating}</p>
             <p>Cuisine : ${elem.cuisine}</p>
             <p>Meal-Type : ${elem.mealType}</p>
@@ -1262,3 +1262,24 @@ const createUI = () => {
     });
 };
 createUI();
+
+const popUpView = document.getElementById("pop-up-view");
+const popUpContent = document.getElementById("pop-up-content");
+
+const handleCardClick = () => {
+    popUpView.style.display = "flex";
+    popUpContent.innerHTML = `
+        <p>Nishant</p>
+    `
+};
+
+const handleClosePopUp = () => {
+    popUpView.style.display = "none";
+};
+
+const homeButton = document.getElementsByTagName('button')[0];
+homeButton.addEventListener('click', () => {
+    alert("Programatically Handled");
+})
+
+
