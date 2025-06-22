@@ -21,6 +21,21 @@
 // console.dir(allIdTags);
 
 
-const mainHeading = document.querySelector("#main-heading");
-mainHeading.innerText = mainHeading.innerText+" This is second DOM!!";
-console.log(mainHeading);
+// const mainHeading = document.querySelector("#main-heading");
+// mainHeading.innerText = mainHeading.innerText+" This is second DOM!!";
+// console.log(mainHeading);
+
+
+// // GetAttribute and SetAttribute
+// const para = document.querySelector("p");
+// console.log(para.getAttribute("class"));
+
+// console.log(para.setAttribute("class", "newClass"));
+// para.style.backgroundColor = "green";
+// para.style.fontSize = "26px";
+
+
+const div = document.querySelector("div");
+const newButton = document.createElement("button");
+div.append(newButton);
+console.log(div);
