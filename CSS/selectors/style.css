@@ -1,0 +1,29 @@
+/*ul{
+    background-color: gray;
+}
+
+ol{
+    background-color: blueviolet;
+}
+
+.fruits.ul-item{
+    background-color: darkorange;
+    color: crimson;
+}
+.fruits.ol-item{
+    background-color: lightseagreen;
+    color: darkred;
+}
+.vegetable.ol-item{
+    background-color: darkgreen;
+    color: blue;
+}
+.vegetable.ul-item{
+    background-color: lightblue;
+    color: darkslategray;
+}*/
+
+*{
+    color: darkred;
+    background-color: yellow;
+}
