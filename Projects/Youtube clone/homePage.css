@@ -17,4 +17,10 @@
 
 .video-thumb-img {
     width: 100%;
+    height: 100%;
+    visibility: inherit;
+    object-fit: cover;
+    display: inline-block;
+    min-height: 1px;
+    min-width: 1px;
 }

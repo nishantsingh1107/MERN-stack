@@ -8262,11 +8262,11 @@ const renderTrendingVideos = (dataObj) => {
 
         newDiv.innerHTML = `
                 <div className='video-thumbnail-container' onclick = "handleViewVideo('${videoId}')">
-                    <img src='${videoThumbnails[1].url}' class='video-thumb-img'>
+                    <img src='${videoThumbnails[0].url}' class='video-thumb-img'>
                 </div>
                 <div className='card-details'>
                     <div className='author-image-container'>
-                        <img src='${authorThumbnails[1].url}'>
+                        <img src='${authorThumbnails[0].url}'>
                     </div>
                     <div className='video-data-right'>
                         <p className='video-title'>${title}</p>
