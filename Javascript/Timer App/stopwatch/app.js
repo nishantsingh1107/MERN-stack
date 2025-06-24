@@ -1,37 +1,66 @@
-let stopwatch = document.querySelector("#hours");
+const stopwatch = document.querySelector("#hours");
 
-let srttime = prompt("Write the timer duration: ");
-let totalseconds = srttime * 60;
-stopwatch.innerText = `${srttime.toString().padStart(2,"0")}:00`
+let totalseconds = 0;
+let timerInterval = null;
+let hasStarted = false;
+let isPaused = false;
+
+function formatTime(seconds) {
+    const min = Math.floor(seconds / 60).toString().padStart(2, "0");
+    const sec = Math.floor(seconds % 60).toString().padStart(2, "0");
+    return `${min}:${sec}`;
+}
 
 function timezero() {
-    let min = Math.floor(totalseconds / 60);
-    let secondsleft = Math.floor(totalseconds % 60);
-
-    stopwatch.innerText = `${min.toString().padStart(2, "0")}:${secondsleft.toString().padStart(2, "0")}`;
-
-    totalseconds--;
-
-    if (totalseconds === -1) {
-        clearInterval(window.funcall);
+    if (totalseconds <= 0) {
+        clearInterval(timerInterval);
+        timerInterval = null;
         alert("Time Over!");
+        stopwatch.innerText = "00:00";
+        hasStarted = false;
+        return;
     }
-    console.log(totalseconds);
-};
 
-// var funcall = setInterval(timezero, 1000);
-
-let cnt = 0;
-
-function resetTimer() {
-    clearInterval(funcall);
-    stopwatch.innerText = "00:00";
+    stopwatch.innerText = formatTime(totalseconds);
+    totalseconds--;
 }
 
 function startTimer() {
-    if (cnt == 0) {
-        window.funcall = setInterval(timezero, 100);
-        cnt++;
+    if (hasStarted || isPaused) return;
+
+    const srttime = prompt("Enter timer duration (minutes):");
+    if (!srttime || isNaN(srttime) || srttime < 0) {
+        alert("Invalid input.");
+        return;
     }
+
+    totalseconds = parseInt(srttime) * 60;
+    stopwatch.innerText = formatTime(totalseconds);
+
+    timerInterval = setInterval(timezero, 1000);
+    hasStarted = true;
+    isPaused = false;
 }
 
+function pauseTimer() {
+    if (!hasStarted || isPaused) return;
+    clearInterval(timerInterval);
+    isPaused = true;
+    hasStarted = false;
+}
+
+function resumeTimer() {
+    if (!isPaused) return;
+    timerInterval = setInterval(timezero, 1000);
+    hasStarted = true;
+    isPaused = false;
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    totalseconds = 0;
+    stopwatch.innerText = "00:00";
+    hasStarted = false;
+    isPaused = false;
+}
