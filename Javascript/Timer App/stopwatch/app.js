@@ -1,66 +1,47 @@
-const stopwatch = document.querySelector("#hours");
+const timeDisplay = document.querySelector("#hours");
 
-let totalseconds = 0;
-let timerInterval = null;
-let hasStarted = false;
-let isPaused = false;
+let secondsPassed = 0;
+let timer = null;
+let running = false;
+let paused = false;
 
-function formatTime(seconds) {
-    const min = Math.floor(seconds / 60).toString().padStart(2, "0");
-    const sec = Math.floor(seconds % 60).toString().padStart(2, "0");
-    return `${min}:${sec}`;
-}
+const formatTime = (secs) => {
+    const mins = String(Math.floor(secs / 60)).padStart(2, "0");
+    const secsOnly = String(secs % 60).padStart(2, "0");
+    return `${mins}:${secsOnly}`;
+};
 
-function timezero() {
-    if (totalseconds <= 0) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-        alert("Time Over!");
-        stopwatch.innerText = "00:00";
-        hasStarted = false;
-        return;
-    }
+const updateTime = () => {
+    secondsPassed++;
+    timeDisplay.innerText = formatTime(secondsPassed);
+};
 
-    stopwatch.innerText = formatTime(totalseconds);
-    totalseconds--;
-}
+const startStopwatch = () => {
+    if (running || paused) return;
+    timer = setInterval(updateTime, 1000);
+    running = true;
+    paused = false;
+};
 
-function startTimer() {
-    if (hasStarted || isPaused) return;
+const pauseStopwatch = () => {
+    if (!running || paused) return;
+    clearInterval(timer);
+    paused = true;
+    running = false;
+};
 
-    const srttime = prompt("Enter timer duration (minutes):");
-    if (!srttime || isNaN(srttime) || srttime < 0) {
-        alert("Invalid input.");
-        return;
-    }
+const resumeStopwatch = () => {
+    if (!paused) return;
+    timer = setInterval(updateTime, 1000);
+    running = true;
+    paused = false;
+};
 
-    totalseconds = parseInt(srttime) * 60;
-    stopwatch.innerText = formatTime(totalseconds);
-
-    timerInterval = setInterval(timezero, 1000);
-    hasStarted = true;
-    isPaused = false;
-}
-
-function pauseTimer() {
-    if (!hasStarted || isPaused) return;
-    clearInterval(timerInterval);
-    isPaused = true;
-    hasStarted = false;
-}
-
-function resumeTimer() {
-    if (!isPaused) return;
-    timerInterval = setInterval(timezero, 1000);
-    hasStarted = true;
-    isPaused = false;
-}
-
-function resetTimer() {
-    clearInterval(timerInterval);
-    timerInterval = null;
-    totalseconds = 0;
-    stopwatch.innerText = "00:00";
-    hasStarted = false;
-    isPaused = false;
-}
+const resetStopwatch = () => {
+    clearInterval(timer);
+    timer = null;
+    secondsPassed = 0;
+    timeDisplay.innerText = "00:00";
+    running = false;
+    paused = false;
+};

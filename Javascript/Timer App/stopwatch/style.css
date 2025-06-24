@@ -1,6 +1,6 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #1e1e2f;
+  background-color: black;
   color: #f0f0f0;
   display: flex;
   flex-direction: column;
@@ -13,15 +13,15 @@ body {
 #hours {
   font-size: 3rem;
   font-weight: bold;
-  background-color: #333;
+  background-color: #2e2e2e;
   padding: 20px 40px;
   border-radius: 12px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 button {
-  padding: 10px 20px;
+  padding: 10px 24px;
   font-size: 1rem;
   margin: 6px;
   border: none;
@@ -29,9 +29,10 @@ button {
   background-color: #4fa3ff;
   color: white;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover {
   background-color: #368fd9;
+  transform: scale(1.05);
 }
