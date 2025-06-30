@@ -1,43 +1,78 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
-    const [timeInSec, setTimeInSec] = useState(0); // if you want value to be stored + rendered on the screen properly
+    const [timeInSec, setTimeInSec] = useState(0);
+    const [laps, setLaps] = useState([]);
     const [isTimerRunning, setIsTimerRunning] = useState(true);
-    const intervalRef = useRef(null); // if you want value to be stored + but do not care about value on screen
 
     useEffect(() => {
-        console.log("========= setting interval =====");
+        console.log("Timer running state changed", isTimerRunning);
 
-        intervalRef.current = setInterval(() => {
-            setTimeInSec((prevTime) => {
-                return prevTime + 1;
-            });
-        }, 1000);
-    }, []);
+        let intervalId = null;
+        if (isTimerRunning) {
+            intervalId = setInterval(() => {
+                // setTimeInSec((prev) => prev + 1);
+                setTimeInSec((prev) => {
+                    return prev + 1;
+                });
+            }, 5); //st1
+        }
+
+        return () => {
+            console.log("Cleaning up interval...");
+            clearInterval(intervalId);
+        };
+    }, [isTimerRunning]);
 
     const handlePause = () => {
-        const intervalId = intervalRef.current;
-        clearInterval(intervalId);
-
-        setIsTimerRunning(false);
+        if (isTimerRunning) {
+            setIsTimerRunning(false);
+        }
     };
 
     const handlePlay = () => {
         if (!isTimerRunning) {
-            intervalRef.current = setInterval(() => {
-                setTimeInSec((prevTime) => {
-                    return prevTime + 1;
-                });
-            }, 1000);
-
             setIsTimerRunning(true);
         }
     };
 
+    const handleLap = () => {
+        console.log("Lap time", timeInSec);
+        setLaps((prev) => {
+            const temp = [...prev];
+            temp.push(timeInSec);
+            return temp;
+        });
+    };
+
+    const handleReset = () => {
+        setTimeInSec(0);
+        setIsTimerRunning(false);
+    };
+
+    const hours = Math.floor(timeInSec / 3600) // derived state variable
+        .toString()
+        .padStart(2, "0");
+
+    const minutes = Math.floor((timeInSec % 3600) / 60)
+        .toString()
+        .padStart(2, "0");
+
+    const seconds = (timeInSec % 60).toString().padStart(2, "0");
+
     return (
         <div>
-            <h2>00:00:{timeInSec}</h2>
+            <h2>
+                {hours}:{minutes}:{seconds}
+            </h2>
             {isTimerRunning ? <button onClick={handlePause}>PAUSE</button> : <button onClick={handlePlay}>PLAY</button>}
+            <button onClick={handleLap}>LAP</button>
+            <button onClick={handleReset}>RESET</button>
+            <div>
+                {laps.map((elem, idx) => {
+                    return <p key={idx}>{elem}</p>;
+                })}
+            </div>
         </div>
     );
 };
