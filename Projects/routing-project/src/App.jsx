@@ -13,7 +13,7 @@ const App = () => {
   return(
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage text={text} handleSearchText = {handleSearchText}/>} />
+        <Route path="/" element={<HomePage text={text} handleSearchText = {handleSearchText} x="y"/>} />
         <Route path="/search" element={<SearchPage text={text} handleSearchText = {handleSearchText}/>} />
         <Route path="/view" element={<ViewPage />} />
         <Route path="/*" element={<NotFound />} />

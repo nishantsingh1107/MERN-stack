@@ -9,19 +9,19 @@ const Header = (props) => {
     };
 
     return (
-        <header className="flex bg-black p-4 justify-between">
+        <header className="flex bg-[#131921] p-4 justify-between">
             <div>
                 <p className="text-amber-300">Shopping App</p>
             </div>
         
             <div>
-                <input className="border-1 border-amber-900 p-1 text-emerald-200" 
+                <input className="border-1 border-[#ffff] p-1 text-white" 
                 onChange={(e) => {
                     handleSearchText(e.target.value);
                 }}
                 value={text}
                 />
-                <button className="border-1 border-amber-900 p-1 text-amber-200" onClick={handleSearch}>Search</button>
+                <button className="border-1 border-[#ffff] p-1 text-white" onClick={handleSearch}>Search</button>
             </div>
         
             <div>
