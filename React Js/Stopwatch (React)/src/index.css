@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.time{
+    font-size: 50px;
+    padding-bottom: 10px;
+}
+.container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    background-color: #111827;
+    color: white;
+    justify-content: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.time-display {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.play {
+    background-color: #22c55e;
+    color: white;
+}
+
+.pause {
+    background-color: #facc15;
+    color: black;
+}
+
+.lap {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.reset {
+    background-color: #ef4444;
+    color: white;
+}
+
+.laps {
+    width: 320px;
+    background-color: #f9fafb;
+    color: #1f2937;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.laps h3 {
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 20px;
+}
+
+.no-laps {
+    text-align: center;
+    color: gray;
+    font-style: italic;
+}
+
+.lap-item {
+    display: flex;
+    justify-content: space-between;
+    background-color: #e5e7eb;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-family: monospace;
+}
