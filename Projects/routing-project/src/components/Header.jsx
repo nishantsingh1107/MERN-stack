@@ -11,7 +11,7 @@ const Header = (props) => {
     return (
         <header className="flex bg-[#131921] p-4 justify-between">
             <div>
-                <p className="text-amber-300">Shopping App</p>
+                <p className="text-white font-bold text-xl">SHOPPING APP</p>
             </div>
         
             <div>
