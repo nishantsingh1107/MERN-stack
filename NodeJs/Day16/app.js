@@ -1,3 +1,6 @@
+const dotEnv = require("dotenv");
+dotEnv.config();
+
 const express = require("express");
 
 require("./config/db");
@@ -33,7 +36,7 @@ app.post("/api/v1/products", async (request, response) => {
         });
 
     } catch (err) {
-        console.log("------ 🔴 Error occured in post products");
+        console.log("------ 🔴 Error occured in post products ------");
         console.log(err.message);
         response.status(500);
         response.json({
