@@ -1,38 +1,37 @@
 const mongoose = require("mongoose");
-
 const { Schema, model } = mongoose;
 
 const productSchema = new Schema(
     {
+        description: String,
         title: {
             type: String,
             required: true,
-            trim: true,
             unique: true,
-        },
-        description: String,
-        rating: {
-            type: Number,
-            min: 0,
-            max: 5,
+            trim: true,
         },
         price: {
             type: Number,
             min: 0,
             required: true,
         },
+        rating: {
+            type: Number,
+            min: 1,
+            max: 5,
+        },
         quantity: {
             type: Number,
-            min: 0,
             default: 1,
         },
+        images: [String],
     },
     {
         versionKey: false,
         timestamps: true,
     }
+
 );
 
-const Product = model("product", productSchema); // name of collection (keep it singular but mongodb will itself make it plural)
-
+const Product = model("product", productSchema);
 module.exports = { Product };

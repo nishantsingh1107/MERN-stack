@@ -3,43 +3,41 @@ dotEnv.config();
 
 const express = require("express");
 
-require("./config/db");
-const { product, Product } = require("./models/productSchema.js");
+require("./config/db.js");
+
+const { Product } = require("./models/product_schema.js");
 
 const app = express();
 
-app.use(express.json()) //This will convey to expressJs to read the body of the request in the JSON format
+app.use(express.json()); // this will convey to express-js to read the body of the request in the json format
 
-app.get("/", (request, response) => {
-    response.json({
+app.get("/", (req, res) => {
+    res.status(200);
+    res.json({
         isSuccess: true,
-        message: "Server is running.....",
-        data: {
-            name: "Keyboard",
-            price: 1500,
-            catagory: "Computer",
-        },
+        message: "Server is running...",
+        data: {},
     });
 });
 
-app.post("/api/v1/products", async (request, response) => {
+app.get("/api/v1/products", async (req, res) => {
     try {
-        const data = request.body;
-        const newProduct = await Product.create(data);
-        response.status(201);
-        response.json({
+        const allProducts = await Product.find();
+        res.status(200);
+        res.json({
             isSuccess: true,
-            message: "Product Created",
+            message: "Products fetched!",
             data: {
-                product: newProduct,
+                products: allProducts,
             },
         });
-
     } catch (err) {
-        console.log("------ 🔴 Error occured in post products ------");
+        console.log("--- 🔴 error occurred in GET products ----");
         console.log(err.message);
-        response.status(500);
-        response.json({
+        console.log("--- -------------- ----");
+
+        res.status(500);
+        res.json({
             isSuccess: false,
             message: "Internal Server Error",
             data: {
@@ -49,7 +47,72 @@ app.post("/api/v1/products", async (request, response) => {
     }
 });
 
+app.post("/api/v1/products", async (req, res) => {
+    try {
+        const data = req.body;
+        const newProduct = await Product.create(data);
+        res.status(201); // status code: CREATED
+        res.json({
+            isSuccess: true,
+            message: "Product created!",
+            data: {
+                product: newProduct,
+            },
+        });
+    } catch (err) {
+        console.log("--- 🔴 error occurred in post products ----");
+        console.log(err.message);
+        console.log("--- -------------- ----");
+
+        if (err.name === "ValidationError" || err.code == "11000") {
+            res.status(400);
+            res.json({
+                isSuccess: false,
+                message: err.message,
+                data: {},
+            });
+        } else {
+            res.status(500);
+            res.json({
+                isSuccess: false,
+                message: "Internal Server Error",
+                data: {
+                    errMessage: err.message,
+                },
+            });
+        }
+    }
+});
+
+app.delete("/api/v1/products/:productId", async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const deletedItem = await Product.findByIdAndDelete(productId);
+
+        res.status(204);
+        res.json({
+            isSuccess: true,
+            message: "Product Deleted!",
+            data: {
+                product: deletedItem,
+            },
+        });
+    } catch (err) {
+        console.log("--- 🔴 error occurred in GET products ----");
+        console.log(err.message);
+        console.log("--- -------------- ----");
+
+        res.status(500);
+        res.json({
+            isSuccess: false,
+            message: "Internal Server Error",
+            data: {
+                errMessage: err.message,
+            },
+        });
+    }
+});
 
 app.listen(2900, () => {
-    console.log("---- Server Started ----");
+    console.log("------ Server started ------");
 });
