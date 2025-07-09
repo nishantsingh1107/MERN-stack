@@ -80,4 +80,35 @@ const updateProductController = async (req, res) => {
     }
 };
 
-module.exports = { createProductController, getAllProducts, updateProductController };
+const deleteProductController = async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const deleteProduct = await Product.findByIdAndDelete(productId);
+
+        if (deleteProduct === null) {
+            res.status(400).json({
+                isSuccess: false,
+                message: "Invalid Product Id",
+                data: {},
+            });
+            return;
+        }
+
+        res.status(200).json({
+            isSuccess: true,
+            message: "Product Deleted Successfully",
+            data: {
+                product: deleteProduct,
+            },
+        });
+    } catch (err) {
+        console.log("🔴 Error in deleteProductController ---> ", err.message);
+        res.status(500).json({
+            isSuccess: false,
+            message: "Internal Server Error",
+            data: {},
+        });
+    }
+};
+
+module.exports = { createProductController, getAllProducts, updateProductController, deleteProductController };
